@@ -3,36 +3,73 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Web Scraper Aplication</title>
+  <title>
+    In Search of Covid
+  </title>
+
+  <style>
+    body {
+      font-family: verdana, sans-serif;
+    }
+
+    .container {
+      background-color: #eee;
+      margin: 1vh 1vw;
+      padding: 1vh 1vw;
+    }
+
+    .header {
+      margin: 3vh 0;
+    }
+
+    .post-title a {
+      text-decoration: none;
+    }
+
+    .post-author,
+    .post-body {
+      margin: 10px 3vw;
+    }
+
+  </style>
 </head>
 
 <body>
-  {% for d in data %}
-  <!--
+  <div class="container">
+    <h2 class="header">latest 25 news about COVID
+      from CNN</h2>
+    <div class="posts">
+      {% for d in data %}
+      <!--
   if it's desired to have an image.
   <img src="{{ d['thumbnail'] }}" alt="">
   -->
-  <h3>
-    {{ loop.index }})
-    <a href="{{d['url']}}">
-      {{d['headline']}}
-    </a>
-  </h3>
-  <p>
-    {{ d['byLine']}}
-  </p>
-  <p>
-    {{ d['body']|truncate(400, False) }}
-  </p>
-  <hr>
-  <!--
+      <div class="title">
+        <h3 class="post-title">
+          {{ loop.index }})
+          <a href="{{d['url']}}">
+            {{d['headline']}}
+          </a>
+        </h3>
+        <p class="post-author">
+          {{ d['byLine']}}
+        </p>
+      </div>
+      <div class="content">
+        <p class="post-body">
+          {{ d['body']|truncate(400, False) }}
+        </p>
+      </div>
+      <hr>
+      <!--
   to see what is in data
   <p>
     {{d}}
   </p>
   -->
-  {% endfor %}
-
+      {% endfor %}
+    </div>
+  </div>
 
 </body>
 
