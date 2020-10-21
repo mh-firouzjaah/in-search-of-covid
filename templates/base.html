@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+
+  <!-- favicon -->
+  <link rel="icon"
+    href="{% static 'img/favicon.svg' %}" />
+
+  <!-- fontawesome -->
+  <link rel="stylesheet"
+    href="{% static '/css/fontawesome.all.min.css' %}" />
+
+  <!-- bootstrap.min -->
+  <link rel="stylesheet"
+    href="{% static '/css/bootstrap.min.css' %}" />
+
+  <!-- custom styles -->
+  <link rel="stylesheet"
+    href="{% static '/css/style.css' %}" />
+
+  <!-- jQuery -->
+  <script type="text/javascript"
+    src="{% static '/js/jquery-3.5.1.min.js' %}">
+  </script>
+
+  {% block extra_heads %}
+  <!-- Extra Head Contents -->
+  {% endblock extra_heads %}
+
+  <title>
+    {% block title %}
+    COVID-19 News
+    {% endblock title %}
+  </title>
+</head>
+
+<body class="m-3">
+  <div class="container-fluid bg-light px-4">
+    <noscript>
+      <div
+        class="alert alert-warning alert-dismissible fade show"
+        role="alert">
+        <button type="button" class="close"
+          data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Warning!</strong>
+        your browser does not support
+        JavaScript! Or maybe its
+        disabled in yor browsers setting
+      </div>
+
+      <script type="text/javascript">
+        $(".alert").alert();
+
+      </script>
+    </noscript>
+
+    <head></head>
+
+    <main>
+      <section id="main-content">
+        {% block content %} {% endblock content %}
+      </section>
+      <section id="section-partials">
+        {% include 'components/alert.html' %}
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  {% include 'components/modal.html' %}
+
+  <!-- bootstrap.js -->
+  <script type="text/javascript"
+    src="{% static '/js/bootstrap.bundle.min.dev.js' %}">
+  </script>
+
+  <!-- custom js -->
+  <script type="text/javascript"
+    src="{% static '/js/main.js' %}">
+  </script>
+
+  {% block document_loaded %}
+  <!-- Extra js -->
+  {% endblock document_loaded %}
+
+</body>
+
+</html>

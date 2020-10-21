@@ -20,7 +20,7 @@ def cnn():
            'q=covid+coronavirus&size=25&from=0&type=article')
     json_data = requests.get(url).json()
     data = json_data['result']
-    return render_template('cnn.html', data=data)
+    return render_template('flask/cnn.html', data=data)
 
 
 @ app.route('/worldometers')
@@ -34,7 +34,7 @@ def worldometers():
     for a in div.find_all('a'):
         if not 'http' in a['href']:
             a['href'] = 'https://www.worldometers.info/' + a['href']
-    return render_template('worldometers.html', data=div)
+    return render_template('flask/worldometers.html', data=div)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,197 @@
+{% with page.paginator.num_pages as total_pages and page.number as current_page %}
+<nav aria-label="Page navigation example">
+	<ul
+		class="pagination pg-blue pagination-circle">
+
+		<li class="page-item disabled">
+			<p class="page-link">Total
+				page{{ total_pages|pluralize }}:
+				{{ total_pages }}
+			</p>
+		</li>
+
+		{% if current_page > 3 %}
+		<li class="page-item">
+			<a class="page-link"
+				href="?page=1">First</a>
+		</li>
+		<!-- <li class="page-item">
+			<a class="page-link" aria-label="Previous"
+				href="?page={{ page.previous_page_number }}">
+				<span aria-hidden="true">&laquo;</span>
+				<span class="sr-only">Previous</span>
+			</a>
+		</li> -->
+		{% else %}
+		<!-- <li class="page-item disabled">
+			<a class="page-link"
+				href="?page=1">First</a>
+		</li>
+		<!-- <li class="page-item disabled">
+			<a class="page-link" aria-label="Previous"
+				href="javascript:{}">
+				<span aria-hidden="true">&laquo;</span>
+				<span class="sr-only">Previous</span>
+			</a>
+		</li> -->
+		{% endif %}
+
+		{% for counter in page.paginator.page_range %}
+		{% if forloop.first and counter < current_page|add:-2 %}
+		<li class="page-item disabled">
+			<a class="page-link" href="javascript:{}">
+				...
+			</a>
+		</li>
+		{% elif counter == current_page|add:-1 or counter == current_page|add:-2 %}
+		<li class="page-item">
+			<a class="page-link"
+				href="?page={{ counter }}">
+				{{ counter }}
+			</a>
+		</li>
+		{% elif counter == current_page and total_pages != 1 %}
+		<li class="page-item disabled active">
+			<a class="page-link"
+				href="javascript:{}">{{ counter }}</a>
+		</li>
+		{% elif current_page < counter and counter <= current_page|add:2 %}
+		<li class="page-item">
+			<a class="page-link"
+				href="?page={{ counter }}">
+				{{ counter }}
+			</a>
+		</li>
+		{% elif counter > current_page|add:2 and forloop.last %}
+		<li class="page-item disabled">
+			<a class="page-link" href="javascript:{}">
+				...
+			</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+
+		{% if page.has_next and current_page|add:2 < total_pages %}
+		<!-- <li class="page-item">
+				<a class=" page-link" aria-label="Next"
+					href="?page={{ page.next_page_number }}">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+				</a>
+			</li> -->
+		<li class="page-item">
+			<a class="page-link"
+				href="?page={{ total_pages }}">
+				Last
+			</a>
+		</li>
+		{% comment %} {% else %}
+		<!-- <li class="page-item disabled">
+				<a class=" page-link" aria-label="Next"
+					href="javascript:{}">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+				</a>
+			</li> -->
+		<li class="page-item disabled">
+			<a class="page-link"
+				href="?page={{ total_pages }}">
+				Last
+			</a>
+		</li> {% endcomment %}
+		{% endif %}
+	</ul>
+</nav>
+{% endwith %}
+{% block extra_heads %}
+<style>
+	.pagination .page-item.active .page-link {
+		cursor: pointer;
+		color: #fff;
+		background-color: #3f729b;
+		border-radius: 0.125rem;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+			0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		transition: all 0.5s linear;
+	}
+
+	.pagination .page-item.active .page-link:hover {
+		cursor: pointer;
+		border-radius: 0.125rem;
+	}
+
+	.pagination .page-item.active .page-link:active {
+		background-color: #3f729b;
+		background-size: 100%;
+		transition: background 0s;
+	}
+
+	.pagination .page-item.disabled .page-link {
+		cursor: pointer;
+		color: #868e96;
+	}
+
+	.pagination .page-item.disabled.active .page-link {
+		cursor: pointer;
+		color: #fff;
+	}
+
+	.pagination .page-item .page-link {
+		cursor: pointer;
+		font-size: 0.9rem;
+		color: #212529;
+		background-color: transparent;
+		border: 0;
+		outline: 0;
+		transition: all 0.5s linear;
+	}
+
+	.pagination .page-item .page-link:hover {
+		cursor: pointer;
+		background: #bbb radial-gradient(circle,
+				transparent 1%, #bbb 1%) center/15000%;
+		border-radius: 0.125rem;
+		transition: all 0.75s linear;
+	}
+
+	.pagination .page-item .page-link:active {
+		background-color: #3f729b;
+		background-size: 100%;
+		transition: background 0s;
+	}
+
+	.pagination .page-item .page-link:focus {
+		cursor: pointer;
+		background-color: #3f729b;
+		box-shadow: none;
+	}
+
+	.pagination.pagination-lg .page-item .page-link {
+		cursor: pointer;
+		font-size: 1rem;
+	}
+
+	.pagination.pagination-sm .page-item .page-link {
+		cursor: pointer;
+		font-size: 0.8rem;
+	}
+
+	.pagination.pagination-circle .page-item .page-link {
+		cursor: pointer;
+		margin-right: 2px;
+		margin-left: 2px;
+		border-radius: 50%;
+	}
+
+	.pagination.pagination-circle .page-item .page-link:hover {
+		cursor: pointer;
+		border-radius: 50%;
+	}
+
+	.pagination.pagination-circle .page-item.active .page-link {
+		cursor: pointer;
+		border-radius: 50%;
+	}
+
+</style>
+{% endblock extra_heads %}

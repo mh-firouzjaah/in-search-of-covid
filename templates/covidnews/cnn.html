@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block extera_heads %}
+<style>
+  .post-title a,
+  .post-title a:hover {
+    text-decoration: none;
+  }
+
+  .post-author,
+  .post-body {
+    margin: 10px 3vw;
+  }
+
+</style>
+{% endblock extera_heads %}
+
+{% block content %}
+<div class="container">
+  <h2 class="header my-3 pt-3">
+    latest 25 news about COVID
+    from CNN
+  </h2>
+  <div class="posts">
+    {% for d in data %}
+    {% comment %}
+    <!--
+  if it's desired to have an image.
+  <img src="{{ d.thumbnail }}" alt="">
+  --> {% endcomment %}
+    <div class="title">
+      <h3 class="post-title">
+        {{ forloop.counter }})
+        <a href="{{d.url}}">
+          {{d.headline}}
+        </a>
+      </h3>
+      <p class="post-author">
+        {{ d.byLine}}
+      </p>
+    </div>
+    <div class="content">
+      <p class="post-body">
+        {{ d.body|truncatewords:30 }}
+      </p>
+    </div>
+    <hr>
+    <!--
+  to see what is in data
+  <p>
+    {{d}}
+  </p>
+  -->
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
