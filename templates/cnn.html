@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Web Scraper Aplication</title>
+</head>
+
+<body>
+  {% for d in data %}
+  <!--
+  if it's desired to have an image.
+  <img src="{{ d['thumbnail'] }}" alt="">
+  -->
+  <h3>
+    {{ loop.index }})
+    <a href="{{d['url']}}">
+      {{d['headline']}}
+    </a>
+  </h3>
+  <p>
+    {{ d['byLine']}}
+  </p>
+  <p>
+    {{ d['body']|truncate(400, False) }}
+  </p>
+  <hr>
+  <!--
+  to see what is in data
+  <p>
+    {{d}}
+  </p>
+  -->
+  {% endfor %}
+
+
+</body>
+
+</html>
